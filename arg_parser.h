@@ -23,10 +23,10 @@ typedef float f32;
 #define ARRAY_LENGTH(ARR) (sizeof(ARR) / sizeof(ARR[0]))
 
 typedef enum Arg_type {
-  ARG_INT = 0,
-  ARG_FLOAT,
-  ARG_STRING,
-  ARG_BUFFER,
+  ArgInt = 0,
+  ArgFloat,
+  ArgString,
+  ArgBuffer,
 
   MAX_ARG_TYPE,
 } Arg_type;
@@ -171,20 +171,20 @@ ParseResult parse_args(Parse_arg* args, u32 num_args, u32 argc, char** argv) {
             assert(buffer != NULL);
             assert(parse_arg);
             switch (parse_arg->type) {
-              case ARG_INT: {
+              case ArgInt: {
                 sscanf(buffer, "%i", (i32*)parse_arg->data);
                 break;
               }
-              case ARG_FLOAT: {
+              case ArgFloat: {
                 sscanf(buffer, "%f", (f32*)parse_arg->data);
                 break;
               }
-              case ARG_STRING: {
-                char** String = parse_arg->data;
-                *String = buffer;
+              case ArgString: {
+                char** str = parse_arg->data;
+                *str = buffer;
                 break;
               }
-              case ARG_BUFFER: {
+              case ArgBuffer: {
                 sscanf(buffer, "%s", (char*)parse_arg->data);
                 break;
               }
@@ -200,11 +200,11 @@ ParseResult parse_args(Parse_arg* args, u32 num_args, u32 argc, char** argv) {
         }
         else {
           switch (parse_arg->type) {
-            case ARG_INT: {
+            case ArgInt: {
               *(i32*)parse_arg->data = 1;
               break;
             }
-            case ARG_FLOAT: {
+            case ArgFloat: {
               *(f32*)parse_arg->data = 1.0f;
               break;
             }
@@ -224,12 +224,12 @@ ParseResult parse_args(Parse_arg* args, u32 num_args, u32 argc, char** argv) {
         parse_arg = &args[arg_index];
         if (parse_arg->flag == 0 && parse_arg->long_flag == NULL) {
           switch (parse_arg->type) {
-            case ARG_STRING: {
-              char** String = parse_arg->data;
-              *String = argv[index];
+            case ArgString: {
+              char** str = parse_arg->data;
+              *str = argv[index];
               break;
             }
-            case ARG_BUFFER: {
+            case ArgBuffer: {
               strcpy((char*)parse_arg->data, argv[index]);
             }
             default:

@@ -21,9 +21,9 @@ int main(int argc, char** argv) {
     4  // indentation for each argument entry
   );
   Parse_arg args[] = {
-    {0, NULL, "filename", ARG_STRING, 0, &options.filename},
-    {'v', "verbose", "enable verbose output", ARG_INT, 0, &options.verbose},
-    {'f', "factor", "factor that does something", ARG_FLOAT, 1, &options.factor},
+    {0, NULL, "filename", ArgString, 0, &options.filename},
+    {'v', "verbose", "enable verbose output", ArgInt, 0, &options.verbose},
+    {'f', "factor", "factor that does something", ArgFloat, 1, &options.factor},
   };
   if (argc <= 1) {
     args_print_help(stdout, args, ARRAY_LENGTH(args), argv);
